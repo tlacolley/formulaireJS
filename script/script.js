@@ -20,49 +20,43 @@ $(document).ready(function() {
         $(':input',"#myform").submit();
 
 
-        if($("input").val().length == 0){
+         if ($("input:empty") ){
+               $('input').addClass("is-unvalid");
+               // $("input").prop({
+               //     "required": true,
+               // })
+           }
+           else{
+                $('input').addClass("is-valid");
 
-            $("input").prop({
-                "required": true,
-            })
-            // $("input").addClass("is-invalid")
+           }
 
-        }
-        // else{
-        //
-        //     $("input").addClass("is-valid")
-        // }
-
-
-
-
-        // if($("input").val().length ==0 ){
-        //     $("input").addClass("is-invalid")
-        //     console.log("h");
-        // }
-        // else {
-        //     $("input").addClass("is-valid")
-        //
-        // }
 
 
         if ($('#inputPassword3').val() !== $('#inputPassword4').val()){
             alert('Different Value');
+        }
+         else if ($("input:password:empty") ){
+            $('#inputPassword3').addClass("is-unvalid");
+            $('#inputPassword4').addClass("is-unvalid");
+            console.log("plop");
 
-        } else {
-            $('#inputPassword3').addClass("is-valid")
-            $('#inputPassword4').addClass("is-valid")
+        }
+        else{
+            $('#inputPassword3').addClass("is-valid");
+            $('#inputPassword4').addClass("is-valid");
             return true;
         }
-
 
 
 
     });
 
 
-
-
+    // $("#myform input.required").filter(function() {
+    //     return !this.value;
+    // }).addClass("is-unvalid");
+    //
 
 
      ////////////////////////////////////////////////////////////////////////////
