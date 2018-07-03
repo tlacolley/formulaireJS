@@ -9,6 +9,7 @@ $(document).ready(function(){
         $erreur = $('#erreur'),
         $champ = $('.champ');
 
+
     $champ.keyup(function(){
         if($(this).val().length < 5){ // si la chaîne de caractères est inférieure à 5
             $(this).css({ // on rend le champ rouge
@@ -56,6 +57,12 @@ $(document).ready(function(){
         });
         $erreur.css('display', 'none'); // on prend soin de cacher le message d'erreur
     });
+    $('#mdp').pwstrength({
+        ui: { showVerdictsInsideProgressBar: true }
+    });
+
+
+
 
     function verifier(champ){
         if(champ.val() == ""){ // si le champ est vide
@@ -66,5 +73,23 @@ $(document).ready(function(){
     	    });
         }
     }
+
+    $("#mail").keyup(function() {
+     var input = $(this).val();
+     var regexMail = new RegExp("[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})");
+     if (regexMail.test(input)) {
+         $(this).css({ // on rend le champ vert
+           borderColor : 'green',
+           color : 'green'
+       });
+     } else {
+         $(this).css({ // on rend le champ rouge
+           borderColor : 'red',
+           color : 'red'
+       });
+     }
+});
+
+// $(document).tooltip();
 
 });
