@@ -1,73 +1,70 @@
-$(document).ready(function() {
+$(document).ready(function(){
 
-    $("input").attr({
+    var $pseudo = $('#pseudo'),
+        $mdp = $('#mdp'),
+        $confirmation = $('#confirmation'),
+        $mail = $('#mail'),
+        $envoi = $('#envoi'),
+        $reset = $('#rafraichir'),
+        $erreur = $('#erreur'),
+        $champ = $('.champ');
 
-        "minlength":5,
-
-    })
-// ==========================Button Clear
-    $('#reset').click(function() {
-        $(':input').attr("required",false);
-        $(':input').attr("minlength",0);
-        $(':input', '#myform')
-
-            .val('')
+    $champ.keyup(function(){
+        if($(this).val().length < 5){ // si la chaîne de caractères est inférieure à 5
+            $(this).css({ // on rend le champ rouge
+                borderColor : 'red',
+	        color : 'red'
+            });
+         }
+         else{
+             $(this).css({ // si tout est bon, on le rend vert
+	         borderColor : 'green',
+	         color : 'green'
+	     });
+         }
     });
-    //
 
-
-    $("#sub").click(function() {
-        $(':input',"#myform").submit();
-
-
-         if ($("input:empty") ){
-               $('input').addClass("is-unvalid");
-               // $("input").prop({
-               //     "required": true,
-               // })
-           }
-           else{
-                $('input').addClass("is-valid");
-
-           }
-
-
-
-        if ($('#inputPassword3').val() !== $('#inputPassword4').val()){
-            alert('Different Value');
-        }
-         else if ($("input:password:empty") ){
-            $('#inputPassword3').addClass("is-unvalid");
-            $('#inputPassword4').addClass("is-unvalid");
-            console.log("plop");
-
+    $confirmation.keyup(function(){
+        if($(this).val() != $mdp.val()){ // si la confirmation est différente du mot de passe
+            $(this).css({ // on rend le champ rouge
+     	        borderColor : 'red',
+        	color : 'red'
+            });
         }
         else{
-            $('#inputPassword3').addClass("is-valid");
-            $('#inputPassword4').addClass("is-valid");
-            return true;
+	    $(this).css({ // si tout est bon, on le rend vert
+	        borderColor : 'green',
+	        color : 'green'
+	    });
         }
-
-
-
     });
 
+    $envoi.click(function(e){
+        e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
 
-    // $("#myform input.required").filter(function() {
-    //     return !this.value;
-    // }).addClass("is-unvalid");
-    //
+        // puis on lance la fonction de vérification sur tous les champs :
+        verifier($pseudo);
+        verifier($mdp);
+        verifier($confirmation);
+        verifier($mail);
+    });
 
+    $reset.click(function(){
+        $champ.css({ // on remet le style des champs comme on l'avait défini dans le style CSS
+            borderColor : '#ccc',
+    	    color : '#555'
+        });
+        $erreur.css('display', 'none'); // on prend soin de cacher le message d'erreur
+    });
 
-     ////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
+    function verifier(champ){
+        if(champ.val() == ""){ // si le champ est vide
+    	    $erreur.css('display', 'block'); // on affiche le message d'erreur
+            champ.css({ // on rend le champ rouge
+    	        borderColor : 'red',
+    	        color : 'red'
+    	    });
+        }
+    }
 
 });
